@@ -21,9 +21,9 @@
                 extend: {
                     colors: {
                         brand: {
-                            dark: '#0f172a', // Deep navy
-                            gold: '#d4af37', // Elegant gold
-                            light: '#f8fafc', // Off white
+                            dark: '#0f172a',
+                            gold: '#d4af37',
+                            light: '#f8fafc',
                         }
                     },
                     fontFamily: {
@@ -36,7 +36,6 @@
     </script>
 
     <style>
-        /* Custom Animations */
         .fade-in {
             opacity: 0;
             transform: translateY(20px);
@@ -47,16 +46,13 @@
             transform: translateY(0);
         }
         
-        /* Smooth scrolling */
         html { scroll-behavior: smooth; }
 
-        /* Background Pattern */
         .bg-pattern {
             background-color: #0f172a;
             background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='#d4af37' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
         }
 
-        /* Envelope Overlay - FIXED FOR MOBILE SCREENS */
         #envelope-overlay {
             transition: transform 1s ease-in-out, opacity 1s ease-in-out;
         }
@@ -66,7 +62,6 @@
             pointer-events: none;
         }
 
-        /* Mobile Container to mimic standard invitation aspect */
         .app-container {
             max-width: 480px;
             margin: 0 auto;
@@ -80,19 +75,18 @@
 </head>
 <body class="bg-gray-100 text-gray-800 font-sans">
 
-    <!-- HIDDEN YOUTUBE PLAYER FOR MUSIC -->
-    <div style="position: absolute; top: -9999px; left: -9999px;">
-        <iframe id="bg-music" src="https://www.youtube.com/embed/oL8CTelas1g?enablejsapi=1&autoplay=0&loop=1&playlist=oL8CTelas1g" frameborder="0" allow="autoplay"></iframe>
-    </div>
+    <!-- NEW INVISIBLE MP3 PLAYER -->
 
-    <!-- Music Control Button (Floating) -->
+    <audio id="bg-music" loop>
+        <source src="Starship - Nothing's Gonna Stop Us Now (Official Music Video) [HD].mp3" type="audio/mpeg">
+    </audio>
+
     <button id="music-toggle" class="fixed bottom-6 right-6 z-40 bg-brand-gold text-white p-4 rounded-full shadow-lg hidden flex items-center justify-center w-14 h-14" onclick="toggleMusic()">
         <i id="music-icon" class="fas fa-music text-xl animate-pulse"></i>
     </button>
 
     <div class="app-container bg-pattern">
         
-        <!-- OPENING ENVELOPE OVERLAY (LOCKED TO SCREEN HEIGHT) -->
         <div id="envelope-overlay" class="fixed inset-0 h-[100dvh] w-full z-50 bg-brand-dark flex flex-col items-center justify-center text-center p-6">
             <div class="border-2 border-brand-gold p-6 sm:p-8 rounded-lg max-w-sm w-full bg-brand-dark bg-opacity-90 backdrop-blur-sm">
                 <i class="fas fa-envelope-open-text text-4xl text-brand-gold mb-4 sm:mb-6"></i>
@@ -104,10 +98,8 @@
             </div>
         </div>
 
-        <!-- MAIN CONTENT -->
         <div id="main-content" class="text-white pb-20">
             
-            <!-- Hero Section -->
             <header class="min-h-screen flex flex-col items-center justify-center text-center p-8 relative">
                 <div class="absolute inset-0 bg-gradient-to-b from-brand-dark/50 to-brand-dark z-0"></div>
                 
@@ -119,13 +111,11 @@
                     <h2 class="font-serif text-2xl sm:text-3xl text-brand-gold font-bold px-2">Dr. Sivalingam <br> A/L Balasingam</h2>
                 </div>
 
-                <!-- Scroll Indicator -->
                 <div class="absolute bottom-10 left-1/2 transform -translate-x-1/2 z-10 animate-bounce">
                     <i class="fas fa-chevron-down text-brand-gold text-2xl opacity-70"></i>
                 </div>
             </header>
 
-            <!-- Message Section -->
             <section class="py-16 px-8 text-center bg-white text-brand-dark fade-in">
                 <i class="fas fa-quote-left text-brand-gold text-3xl mb-4 opacity-50"></i>
                 <p class="font-serif text-lg leading-relaxed text-gray-700 max-w-md mx-auto">
@@ -134,12 +124,10 @@
                 </p>
             </section>
 
-            <!-- Details Section -->
             <section class="py-16 px-6 text-center fade-in">
                 <h3 class="font-serif text-3xl text-brand-gold mb-10">Event Details</h3>
                 
                 <div class="space-y-6 max-w-md mx-auto">
-                    <!-- Date -->
                     <div class="bg-brand-dark border border-brand-gold/30 p-6 rounded-xl shadow-lg relative overflow-hidden group">
                         <div class="absolute top-0 left-0 w-1 h-full bg-brand-gold"></div>
                         <i class="far fa-calendar-alt text-3xl text-brand-gold mb-3"></i>
@@ -147,7 +135,6 @@
                         <p class="text-gray-300">Saturday, 12th September 2026</p>
                     </div>
 
-                    <!-- Time -->
                     <div class="bg-brand-dark border border-brand-gold/30 p-6 rounded-xl shadow-lg relative overflow-hidden group">
                         <div class="absolute top-0 left-0 w-1 h-full bg-brand-gold"></div>
                         <i class="far fa-clock text-3xl text-brand-gold mb-3"></i>
@@ -155,7 +142,6 @@
                         <p class="text-gray-300">8:00 PM - 10:00 PM</p>
                     </div>
 
-                    <!-- Theme -->
                     <div class="bg-brand-dark border border-brand-gold/30 p-6 rounded-xl shadow-lg relative overflow-hidden group">
                         <div class="absolute top-0 left-0 w-1 h-full bg-brand-gold"></div>
                         <i class="fas fa-tshirt text-3xl text-brand-gold mb-3"></i>
@@ -163,7 +149,6 @@
                         <p class="text-gray-300 font-medium">Retro Denim</p>
                     </div>
 
-                    <!-- Venue -->
                     <div class="bg-brand-dark border border-brand-gold/30 p-6 rounded-xl shadow-lg relative overflow-hidden group">
                         <div class="absolute top-0 left-0 w-1 h-full bg-brand-gold"></div>
                         <i class="fas fa-map-marker-alt text-3xl text-brand-gold mb-3"></i>
@@ -178,7 +163,6 @@
                 </div>
             </section>
 
-            <!-- RSVP Section -->
             <section id="rsvp" class="py-16 px-6 bg-white text-brand-dark fade-in rounded-t-3xl mt-8">
                 <h3 class="font-serif text-3xl text-brand-dark text-center mb-2">RSVP</h3>
                 <p class="text-center text-gray-500 mb-8 text-sm">Please let us know if you can make it.</p>
@@ -218,7 +202,6 @@
                     </button>
                 </form>
 
-                <!-- Thank You Modal -->
                 <div id="thank-you-msg" class="hidden text-center py-10">
                     <div class="inline-block p-4 rounded-full bg-green-100 text-green-600 mb-4">
                         <i class="fas fa-check text-3xl"></i>
@@ -228,7 +211,6 @@
                 </div>
             </section>
 
-            <!-- Footer -->
             <footer class="bg-brand-dark text-center py-8 border-t border-gray-800">
                 <p class="font-serif text-brand-gold text-xl mb-2">Thank You</p>
                 <p class="text-xs text-gray-500">Looking forward to seeing you.</p>
@@ -239,9 +221,9 @@
 
     <!-- Scripts -->
     <script>
-        // --- Music Controls ---
+        // --- NEW Audio Controls ---
         let isPlaying = false;
-        const ytPlayer = document.getElementById('bg-music');
+        const audioPlayer = document.getElementById('bg-music');
         const musicIcon = document.getElementById('music-icon');
         const musicBtn = document.getElementById('music-toggle');
 
@@ -257,14 +239,14 @@
         }
 
         function playMusic() {
-            ytPlayer.contentWindow.postMessage('{"event":"command","func":"playVideo","args":""}', '*');
+            audioPlayer.play();
             isPlaying = true;
             musicIcon.classList.remove('fa-music', 'text-gray-400');
             musicIcon.classList.add('fa-music', 'text-white', 'animate-pulse');
         }
 
         function pauseMusic() {
-            ytPlayer.contentWindow.postMessage('{"event":"command","func":"pauseVideo","args":""}', '*');
+            audioPlayer.pause();
             isPlaying = false;
             musicIcon.classList.remove('animate-pulse', 'text-white');
             musicIcon.classList.add('fa-volume-mute', 'text-gray-400');
@@ -309,7 +291,7 @@
             requestBody.append("pax", document.getElementById('pax').value);
             requestBody.append("message", document.getElementById('message').value);
 
-            // ⚠️ DO NOT FORGET TO PASTE YOUR GOOGLE SCRIPT URL BELOW
+            // Google Script
             const scriptURL = "https://script.google.com/macros/s/AKfycbx06pTV3gnOu2guuR3pTM2uj-2ufbQstsU3YfNnVJP25Xt54RABgZmQp8JnjBqdCas8mw/exec"; 
 
             fetch(scriptURL, { method: 'POST', body: requestBody })
