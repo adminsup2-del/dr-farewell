@@ -293,40 +293,47 @@
         window.addEventListener('scroll', checkFadeIn);
 
         // --- RSVP WhatsApp Integration ---
-        function submitRSVP(e) {
+                function submitRSVP(e) {
             e.preventDefault();
             
-            // Get form values
-            const name = document.getElementById('guestName').value;
-            const attendance = document.getElementById('attendance').value;
-            const pax = document.getElementById('pax').value;
-            const message = document.getElementById('message').value;
+            // 1. Change button text to show it is loading
+            const submitBtn = document.querySelector('button[type="submit"]');
+            const originalBtnText = submitBtn.innerHTML;
+            submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending RSVP...';
+            submitBtn.disabled = true;
 
-            // CHANGE THIS TO THE ORGANIZER's WHATSAPP NUMBER (Include Country Code, e.g., 601154231105 for Malaysia)
-            const whatsappNumber = "601154231105"; 
+            // 2. Package the form data safely
+            let requestBody = new FormData();
+            requestBody.append("name", document.getElementById('guestName').value);
+            requestBody.append("attendance", document.getElementById('attendance').value);
+            requestBody.append("pax", document.getElementById('pax').value);
+            requestBody.append("message", document.getElementById('message').value);
 
-            // Format message
-            let statusText = attendance === 'attending' 
-                ? `*I will be attending* with ${pax} pax.` 
-                : `*Sorry, I will not be able to attend*.`;
+            // 3. PASTE YOUR GOOGLE WEB APP URL BELOW
+            const scriptURL = "https://script.google.com/macros/s/AKfycbx06pTV3gnOu2guuR3pTM2uj-2ufbQstsU3YfNnVJP25Xt54RABgZmQp8JnjBqdCas8mw/exec"; 
 
-            let waMessage = `*RSVP: Farewell Dr. Susan*%0A%0A`;
-            waMessage += `*Name:* ${name}%0A`;
-            waMessage += `*Status:* ${statusText}%0A`;
-            if (message.trim() !== "") {
-                waMessage += `*Wish/Message:* ${message}%0A`;
-            }
-
-            // Hide form, show thank you
-            document.getElementById('rsvp-form').classList.add('hidden');
-            document.getElementById('thank-you-msg').classList.remove('hidden');
-
-            // Open WhatsApp
-            const waLink = "https://wa.me/" + whatsappNumber + "?text=" + waMessage;
-            window.location.href=walink;
+            // 4. Send the data to Google Sheets in the background
+            fetch(scriptURL, { method: 'POST', body: requestBody })
+                .then(response => {
+                    // Hide form, show thank you message
+                    document.getElementById('rsvp-form').classList.add('hidden');
+                    
+                    // Update Thank You text for Google Sheets version
+                    const thankYouMsg = document.getElementById('thank-you-msg');
+                    thankYouMsg.querySelector('p').innerText = "Your RSVP has been successfully recorded.";
+                    thankYouMsg.classList.remove('hidden');
+                    
+                    // Reset button
+                    submitBtn.innerHTML = originalBtnText;
+                    submitBtn.disabled = false;
+                })
+                .catch(error => {
+                    alert('There was a problem sending your RSVP. Please try again.');
+                    submitBtn.innerHTML = originalBtnText;
+                    submitBtn.disabled = false;
+                });
         }
 
-        function resetForm() {
             document.getElementById('rsvp-form').reset();
             document.getElementById('rsvp-form').classList.remove('hidden');
             document.getElementById('thank-you-msg').classList.add('hidden');
