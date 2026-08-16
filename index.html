@@ -322,7 +322,7 @@
             document.getElementById('thank-you-msg').classList.remove('hidden');
 
             // Open WhatsApp
-            const waLink = `https://wa.me/${whatsappNumber}?text=${waMessage}`;
+            const waLink = "https://wa.me/" + whatsappNumber + "?text=" + waMessage;
             window.location.href=walink;
         }
 
