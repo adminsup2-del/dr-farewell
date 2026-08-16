@@ -293,10 +293,10 @@
         window.addEventListener('scroll', checkFadeIn);
 
         // --- RSVP WhatsApp Integration ---
-                function submitRSVP(e) {
+        function submitRSVP(e) {
             e.preventDefault();
             
-            // 1. Change button text to show it is loading
+
             const submitBtn = document.querySelector('button[type="submit"]');
             const originalBtnText = submitBtn.innerHTML;
             submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending RSVP...';
@@ -333,7 +333,7 @@
                     submitBtn.disabled = false;
                 });
         }
-
+function resetForm(){
             document.getElementById('rsvp-form').reset();
             document.getElementById('rsvp-form').classList.remove('hidden');
             document.getElementById('thank-you-msg').classList.add('hidden');
