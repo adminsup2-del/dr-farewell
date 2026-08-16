@@ -323,9 +323,7 @@
 
             // Open WhatsApp
             const waLink = `https://wa.me/${whatsappNumber}?text=${waMessage}`;
-            setTimeout(() => {
-                window.open(waLink, '_blank');
-            }, 1500);
+            window.location.href=walink;
         }
 
         function resetForm() {
