@@ -75,8 +75,7 @@
 </head>
 <body class="bg-gray-100 text-gray-800 font-sans">
 
-    <!-- NEW INVISIBLE MP3 PLAYER -->
-
+    <!-- MP3 PLAYER -->
     <audio id="bg-music" loop>
         <source src="Starship - Nothing's Gonna Stop Us Now (Official Music Video) [HD].mp3" type="audio/mpeg">
     </audio>
@@ -164,10 +163,12 @@
             </section>
 
             <section id="rsvp" class="py-16 px-6 bg-white text-brand-dark fade-in rounded-t-3xl mt-8">
-                <h3 class="font-serif text-3xl text-brand-dark text-center mb-2">RSVP</h3>
-                <p class="text-center text-gray-500 mb-8 text-sm">Please let us know if you can make it.</p>
+                <h3 class="font-serif text-3xl text-brand-dark text-center mb-2">RSVP & Payment</h3>
+                <p class="text-center text-gray-500 mb-8 text-sm">Please confirm your attendance below.</p>
 
                 <form id="rsvp-form" class="space-y-5 max-w-sm mx-auto" onsubmit="submitRSVP(event)">
+                    
+                    <!-- Basic Info -->
                     <div>
                         <label class="block text-sm font-medium text-gray-700 mb-1">Full Name</label>
                         <input type="text" id="guestName" required class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:border-brand-gold focus:ring-1 focus:ring-brand-gold outline-none transition bg-gray-50" placeholder="e.g. Ahmad Ali">
@@ -175,29 +176,58 @@
 
                     <div>
                         <label class="block text-sm font-medium text-gray-700 mb-1">Will you attend?</label>
-                        <select id="attendance" required class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:border-brand-gold focus:ring-1 focus:ring-brand-gold outline-none transition bg-gray-50">
+                        <select id="attendance" required onchange="toggleRsvpFields()" class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:border-brand-gold focus:ring-1 focus:ring-brand-gold outline-none transition bg-gray-50">
                             <option value="" disabled selected>Please select an option</option>
                             <option value="attending">Yes, I will attend</option>
                             <option value="not_attending">Sorry, I cannot attend</option>
                         </select>
                     </div>
 
-                    <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-1">Number of Pax (Including you)</label>
-                        <select id="pax" class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:border-brand-gold focus:ring-1 focus:ring-brand-gold outline-none transition bg-gray-50">
-                            <option value="1">1 Person</option>
-                            <option value="2">2 Persons</option>
-                            <option value="3">3 Persons</option>
-                            <option value="4">4 Persons</option>
-                        </select>
+                    <!-- Hidden Fields (Appears only if "Yes, I will attend" is selected) -->
+                    <div id="extra-rsvp-fields" class="hidden space-y-6 mt-4">
+                        
+                        <!-- Payment Details Card -->
+                        <div class="bg-gray-50 border border-gray-200 rounded-xl p-5">
+                            <h4 class="font-bold text-brand-dark mb-2 flex items-center gap-2">
+                                <i class="fas fa-wallet text-brand-gold"></i> Payment Details
+                            </h4>
+                            <p class="text-xs text-gray-600 mb-4">Please make your payment to the account below before submitting your RSVP.</p>
+                            
+                            <div class="bg-white p-4 rounded-lg shadow-sm border border-gray-100">
+                                <p class="text-xs text-gray-400 uppercase tracking-wider mb-1">Account Number</p>
+                                <p class="font-mono text-lg font-bold text-brand-dark mb-2 tracking-wider">1014429000046853</p>
+                                
+                                <p class="text-xs text-gray-400 uppercase tracking-wider mb-1">Account Name</p>
+                                <p class="font-semibold text-gray-700 text-sm">Intan baizura binti Mohd Bahrin</p>
+                            </div>
+                        </div>
+
+                        <!-- Pax Details -->
+                        <div class="grid grid-cols-2 gap-4">
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-1">Adults</label>
+                                <input type="number" id="adults" min="1" value="1" class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:border-brand-gold focus:ring-1 focus:ring-brand-gold outline-none transition bg-white text-center">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-1">Children</label>
+                                <input type="number" id="children" min="0" value="0" class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:border-brand-gold focus:ring-1 focus:ring-brand-gold outline-none transition bg-white text-center">
+                            </div>
+                        </div>
+
+                        <!-- Receipt Upload -->
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">Upload Payment Receipt</label>
+                            <input type="file" id="receipt" accept="image/*,.pdf" class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:border-brand-gold outline-none transition bg-white text-sm file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-brand-gold/10 file:text-brand-gold hover:file:bg-brand-gold/20 cursor-pointer">
+                        </div>
                     </div>
 
+                    <!-- Wishes -->
                     <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-1">Wishes for Dr. Sivalingam</label>
+                        <label class="block text-sm font-medium text-gray-700 mb-1 mt-5">Wishes for Dr. Sivalingam</label>
                         <textarea id="message" rows="3" class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:border-brand-gold focus:ring-1 focus:ring-brand-gold outline-none transition bg-gray-50" placeholder="Leave a sweet message..."></textarea>
                     </div>
 
-                    <button type="submit" class="w-full bg-brand-dark text-white font-semibold py-4 rounded-lg shadow-md hover:bg-gray-800 transition flex justify-center items-center gap-2">
+                    <button type="submit" class="w-full bg-brand-dark text-white font-semibold py-4 rounded-lg shadow-md hover:bg-gray-800 transition flex justify-center items-center gap-2 mt-4">
                         Send RSVP
                     </button>
                 </form>
@@ -207,7 +237,7 @@
                         <i class="fas fa-check text-3xl"></i>
                     </div>
                     <h4 class="font-serif text-2xl mb-2">Thank You!</h4>
-                    <p class="text-gray-600">Your RSVP has been successfully recorded.</p>
+                    <p class="text-gray-600">Your RSVP and receipt have been successfully recorded.</p>
                 </div>
             </section>
 
@@ -221,7 +251,6 @@
 
     <!-- Scripts -->
     <script>
-        // --- NEW Audio Controls ---
         let isPlaying = false;
         const audioPlayer = document.getElementById('bg-music');
         const musicIcon = document.getElementById('music-icon');
@@ -229,11 +258,7 @@
 
         function openInvitation() {
             document.getElementById('envelope-overlay').classList.add('envelope-open');
-            
-            setTimeout(() => {
-                musicBtn.classList.remove('hidden');
-            }, 1000);
-
+            setTimeout(() => { musicBtn.classList.remove('hidden'); }, 1000);
             playMusic();
             setTimeout(checkFadeIn, 100);
         }
@@ -253,30 +278,35 @@
         }
 
         function toggleMusic() {
-            if (isPlaying) {
-                pauseMusic();
-            } else {
-                playMusic();
-            }
+            if (isPlaying) pauseMusic();
+            else playMusic();
         }
 
-        // --- Fade In Animation on Scroll ---
         const fadeElements = document.querySelectorAll('.fade-in');
-        
         function checkFadeIn() {
             fadeElements.forEach(element => {
                 const elementTop = element.getBoundingClientRect().top;
-                const windowHeight = window.innerHeight;
-                
-                if (elementTop < windowHeight - 50) {
-                    element.classList.add('visible');
-                }
+                if (elementTop < window.innerHeight - 50) element.classList.add('visible');
             });
         }
-
         window.addEventListener('scroll', checkFadeIn);
 
-        // --- RSVP Google Sheets Integration ---
+        // --- RSVP Smart Form Logic ---
+        function toggleRsvpFields() {
+            const attendance = document.getElementById('attendance').value;
+            const extraFields = document.getElementById('extra-rsvp-fields');
+            const receiptInput = document.getElementById('receipt');
+
+            if(attendance === 'attending') {
+                extraFields.classList.remove('hidden');
+                receiptInput.required = true; // Force them to upload a receipt
+            } else {
+                extraFields.classList.add('hidden');
+                receiptInput.required = false; // No receipt needed if not attending
+            }
+        }
+
+        // --- Submit Logic with File Upload ---
         function submitRSVP(e) {
             e.preventDefault();
             
@@ -285,20 +315,47 @@
             submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending RSVP...';
             submitBtn.disabled = true;
 
+            const attendance = document.getElementById('attendance').value;
             let requestBody = new FormData();
             requestBody.append("name", document.getElementById('guestName').value);
-            requestBody.append("attendance", document.getElementById('attendance').value);
-            requestBody.append("pax", document.getElementById('pax').value);
+            requestBody.append("attendance", attendance);
             requestBody.append("message", document.getElementById('message').value);
 
-            // Google Script
+            if (attendance === 'attending') {
+                requestBody.append("adults", document.getElementById('adults').value);
+                requestBody.append("children", document.getElementById('children').value);
+
+                const fileInput = document.getElementById('receipt');
+                const file = fileInput.files[0];
+
+                if (file) {
+                    const reader = new FileReader();
+                    reader.onload = function(event) {
+                        const base64Data = event.target.result.split(',')[1];
+                        requestBody.append("filename", file.name);
+                        requestBody.append("mimeType", file.type);
+                        requestBody.append("fileBase64", base64Data);
+                        
+                        sendToGoogle(requestBody, submitBtn, originalBtnText);
+                    };
+                    reader.readAsDataURL(file);
+                }
+            } else {
+                // If not attending, send 0 pax and no file
+                requestBody.append("adults", "0");
+                requestBody.append("children", "0");
+                sendToGoogle(requestBody, submitBtn, originalBtnText);
+            }
+        }
+
+        function sendToGoogle(requestBody, submitBtn, originalBtnText) {
+            // ⚠️ PASTE YOUR NEW GOOGLE SCRIPT URL BELOW
             const scriptURL = "https://script.google.com/macros/s/AKfycbx06pTV3gnOu2guuR3pTM2uj-2ufbQstsU3YfNnVJP25Xt54RABgZmQp8JnjBqdCas8mw/exec"; 
 
             fetch(scriptURL, { method: 'POST', body: requestBody })
                 .then(response => {
                     document.getElementById('rsvp-form').classList.add('hidden');
                     document.getElementById('thank-you-msg').classList.remove('hidden');
-                    
                     submitBtn.innerHTML = originalBtnText;
                     submitBtn.disabled = false;
                 })
